@@ -21,6 +21,7 @@ class _CourseUpdateState extends State<ContactUpdate> {
     updatedName.text = widget.contact.name;
     updatedNumber.text = widget.contact.number.toString();
     updatedImage.text = widget.contact.image;
+    // widget.contact;
   }
 
   @override
@@ -45,7 +46,7 @@ class _CourseUpdateState extends State<ContactUpdate> {
               radius: 50,
             ),
             TextFormField(
-              decoration: InputDecoration(label: Text(contact.name)),
+              decoration: InputDecoration(label: Text(widget.contact.name)),
               controller: updatedName,
               autofocus: true,
             ),
@@ -53,15 +54,15 @@ class _CourseUpdateState extends State<ContactUpdate> {
               height: 10,
             ),
             TextFormField(
-              decoration:
-                  InputDecoration(label: Text(contact.number.toString())),
+              decoration: InputDecoration(
+                  label: Text(widget.contact.number.toString())),
               controller: updatedNumber,
             ),
             SizedBox(
               height: 10,
             ),
             TextFormField(
-              decoration: InputDecoration(label: Text(contact.image)),
+              decoration: InputDecoration(label: Text(widget.contact.image)),
               controller: updatedImage,
             ),
             SizedBox(
@@ -73,7 +74,9 @@ class _CourseUpdateState extends State<ContactUpdate> {
               height: 35,
               child: ElevatedButton(
                 onPressed: () async {
+                  print(widget.contact.toMap());
                   await ContactProvider.instance.update(Contact(
+                      id: widget.contact.id,
                       image: updatedImage.text,
                       name: updatedName.text,
                       number: int.parse(updatedNumber.text)));
@@ -141,7 +144,7 @@ class _CourseUpdateState extends State<ContactUpdate> {
                                   onPressed: () async {
                                     if (contactId != null) {
                                       await ContactProvider.instance
-                                          .delete(contact.id);
+                                          .delete(widget.contact.id);
                                     }
                                     Navigator.of(context).pop();
                                     setState(() {});

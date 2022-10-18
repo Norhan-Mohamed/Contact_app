@@ -45,6 +45,7 @@ create table ContactTable (
       maps.forEach((element) {
         contacts.add(Contact.fromMap(element as Map<String, dynamic>));
       });
+      print(maps);
       return contacts;
     }
   }
