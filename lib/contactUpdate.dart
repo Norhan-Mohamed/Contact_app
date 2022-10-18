@@ -45,7 +45,7 @@ class _CourseUpdateState extends State<ContactUpdate> {
               radius: 50,
             ),
             TextFormField(
-              decoration: InputDecoration(label: Text(contactName)),
+              decoration: InputDecoration(label: Text(contact.name)),
               controller: updatedName,
               autofocus: true,
             ),
@@ -54,14 +54,14 @@ class _CourseUpdateState extends State<ContactUpdate> {
             ),
             TextFormField(
               decoration:
-                  InputDecoration(label: Text(contactNumber.toString())),
+                  InputDecoration(label: Text(contact.number.toString())),
               controller: updatedNumber,
             ),
             SizedBox(
               height: 10,
             ),
             TextFormField(
-              decoration: InputDecoration(label: Text(contactImage)),
+              decoration: InputDecoration(label: Text(contact.image)),
               controller: updatedImage,
             ),
             SizedBox(
@@ -141,7 +141,7 @@ class _CourseUpdateState extends State<ContactUpdate> {
                                   onPressed: () async {
                                     if (contactId != null) {
                                       await ContactProvider.instance
-                                          .delete(contactId); //contact.id??
+                                          .delete(contact.id);
                                     }
                                     Navigator.of(context).pop();
                                     setState(() {});

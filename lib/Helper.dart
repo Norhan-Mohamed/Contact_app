@@ -49,14 +49,14 @@ create table ContactTable (
     }
   }
 
-  Future<int> delete(Contact) async {
-    return await db.delete('ContactTable',
-        where: '$contactId = ?', whereArgs: [Contact.id]);
+  Future<int> delete(int? id) async {
+    return await db
+        .delete('ContactTable', where: '$contactId = ?', whereArgs: [id]);
   }
 
-  Future<int> update(Contact) async {
-    return await db.update('ContactTable', Contact.toMap(),
-        where: '$contactId = ?', whereArgs: [Contact.id]);
+  Future<int> update(Contact contact) async {
+    return await db.update('ContactTable', contact.toMap(),
+        where: '$contactId = ?', whereArgs: [contact.id]);
   }
 
   Future close() async => db.close();

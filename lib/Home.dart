@@ -74,7 +74,7 @@ class _homeState extends State<Home> {
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 20),
+                                      fontSize: 15),
                                 ),
                                 Text(
                                   contact.number.toString(),
