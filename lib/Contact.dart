@@ -13,8 +13,8 @@ class Contact {
     required this.image,
   });
   Contact.fromMap(Map<String, dynamic> map) {
-    this.image = map[contactImage];
     if (map[contactId] != null) this.id = map[contactId];
+    this.image = map[contactImage];
     this.name = map[contactName];
     this.number = map[contactNumber];
   }

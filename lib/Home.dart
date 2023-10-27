@@ -25,7 +25,9 @@ class _homeState extends State<Home> {
         title: Text(
           'My Contacts',
           style: TextStyle(
-              color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 35),
+              color: Color(0xff0977cb),
+              fontWeight: FontWeight.bold,
+              fontSize: 35),
         ),
       ),
       backgroundColor: Colors.white,
@@ -51,6 +53,7 @@ class _homeState extends State<Home> {
                     itemBuilder: (context, index) {
                       Contact contact = contactList[index];
                       return Container(
+                          height: 300,
                           padding: const EdgeInsets.all(8),
                           child: Center(
                             child: Column(
@@ -64,8 +67,9 @@ class _homeState extends State<Home> {
                                                 ContactUpdate(contact)));
                                   },
                                   icon: CircleAvatar(
-                                    radius: 70,
-                                    child: Image.network(contact.image),
+                                    radius: 60,
+                                    backgroundImage:
+                                        NetworkImage(contact.image),
                                   ),
                                 ),
                                 Text(
@@ -77,11 +81,12 @@ class _homeState extends State<Home> {
                                       fontSize: 15),
                                 ),
                                 Text(
+                                  maxLines: 2,
                                   contact.number.toString(),
                                   style: TextStyle(
                                       color: Colors.black45,
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 20),
+                                      fontSize: 15),
                                 ),
                               ],
                             ),
@@ -92,6 +97,8 @@ class _homeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
+          backgroundColor: Color(0xff0977cb),
+          shape: CircleBorder(),
           onPressed: () async {
             await showModalBottomSheet(
               isScrollControlled: true,
@@ -138,22 +145,28 @@ class _homeState extends State<Home> {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   await ContactProvider.instance.insert(Contact(
-                                      image: urlController.text,
-                                      name: nameController.text,
-                                      number:
-                                          int.parse(numberController.text)));
+                                    image: urlController.text,
+                                    name: nameController.text,
+                                    number: int.parse(numberController.text),
+                                  ));
+                                  // Clear text controllers after adding a new contact
+                                  nameController.clear();
+                                  numberController.clear();
+                                  urlController.clear();
                                   print(contactList);
                                   Navigator.pop(context);
+                                  setState(() {});
                                 },
                                 child: Text(
                                   'ADD',
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                  primary: Color(0xff0977cb),
+                                  backgroundColor: Color(0xff0977cb),
                                 ),
                               ),
                             ),
@@ -162,7 +175,6 @@ class _homeState extends State<Home> {
                 ),
               ),
             );
-            setState(() {});
           }),
     );
   }

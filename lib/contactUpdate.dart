@@ -5,7 +5,7 @@ import 'Helper.dart';
 
 class ContactUpdate extends StatefulWidget {
   Contact contact;
-  ContactUpdate(this.contact);
+  ContactUpdate(this.contact, {super.key});
   @override
   _CourseUpdateState createState() => _CourseUpdateState();
 }
@@ -28,10 +28,12 @@ class _CourseUpdateState extends State<ContactUpdate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Contact Details',
           style: TextStyle(
-              color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 25),
+              color: Color(0xff0977cb),
+              fontWeight: FontWeight.bold,
+              fontSize: 25),
         ),
         backgroundColor: Colors.transparent,
       ),
@@ -39,18 +41,18 @@ class _CourseUpdateState extends State<ContactUpdate> {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            CircleAvatar(
-              radius: 50,
+            const CircleAvatar(
+              radius: 100,
             ),
             TextFormField(
               decoration: InputDecoration(label: Text(widget.contact.name)),
               controller: updatedName,
               autofocus: true,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFormField(
@@ -58,20 +60,20 @@ class _CourseUpdateState extends State<ContactUpdate> {
                   label: Text(widget.contact.number.toString())),
               controller: updatedNumber,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextFormField(
               decoration: InputDecoration(label: Text(widget.contact.image)),
               controller: updatedImage,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
-              color: Color(0xff0977cb),
-              width: 200,
-              height: 35,
+              color: const Color(0xff0977cb),
+              width: 400,
+              height: 45,
               child: ElevatedButton(
                 onPressed: () async {
                   print(widget.contact.toMap());
@@ -81,32 +83,33 @@ class _CourseUpdateState extends State<ContactUpdate> {
                       name: updatedName.text,
                       number: int.parse(updatedNumber.text)));
                   Navigator.pop(context);
+                  setState(() {});
                 },
-                child: Text(
-                  'Save',
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff0977cb),
+                ),
+                child: const Text(
+                  'SAVE',
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 15),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xff0977cb),
+                      fontSize: 25),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
-              width: 200,
-              height: 35,
+              width: 400,
+              height: 55,
               color: Colors.white,
-              child: ElevatedButton(
+              child: TextButton(
                   child: Text(
-                    'Delete',
+                    'DELETE',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                        fontSize: 25,
                         color: Color(0xff0977cb)),
                   ),
                   onPressed: () {
@@ -114,14 +117,14 @@ class _CourseUpdateState extends State<ContactUpdate> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Delete Contact',
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.black54,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 35),
                             ),
-                            content: Text(
+                            content: const Text(
                               'Are you sure you want to delete this Contact ?',
                               style: TextStyle(
                                   color: Colors.black45,
@@ -129,27 +132,28 @@ class _CourseUpdateState extends State<ContactUpdate> {
                                   fontWeight: FontWeight.w400),
                             ),
                             actions: [
-                              ElevatedButton(
+                              TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'Cancel',
                                     style: TextStyle(
                                         color: Colors.grey,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 25),
                                   )),
-                              ElevatedButton(
+                              TextButton(
                                   onPressed: () async {
                                     if (contactId != null) {
                                       await ContactProvider.instance
                                           .delete(widget.contact.id);
                                     }
-                                    Navigator.of(context).pop();
+
                                     setState(() {});
+                                    Navigator.of(context).pop();
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'Yes',
                                     style: TextStyle(
                                         color: Colors.red,
@@ -160,8 +164,8 @@ class _CourseUpdateState extends State<ContactUpdate> {
                           );
                         });
                   },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.white,
                   )),
             )
           ],
